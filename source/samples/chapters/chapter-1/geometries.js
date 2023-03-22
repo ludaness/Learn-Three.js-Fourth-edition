@@ -14,12 +14,12 @@ const props = {
 const gui = new GUI();
 
 initScene(props)(({ scene, camera, renderer, orbitControls }) => {
-  
+
   const geometry = new THREE.BoxGeometry();
-  const cubeMaterial = new THREE.MeshPhongMaterial({ color: 0x0000FF });
+  const cubeMaterial = new THREE.MeshPhongMaterial({ color: 0xFF0000 });
   const cube = new THREE.Mesh(geometry, cubeMaterial);
-  
-  cube.position.x = -1;
+
+  cube.position.x = 0;
   cube.castShadow = true;
   scene.add(cube);
 
@@ -52,10 +52,10 @@ initScene(props)(({ scene, camera, renderer, orbitControls }) => {
     torusKnotMesh.rotation.x -= 0.01;
     torusKnotMesh.rotation.y += 0.01;
     torusKnotMesh.rotation.z -= 0.01;
-    
+
     // uncomment this to have the cube jump around
     step += 0.04;
-    cube.position.x = 4*(Math.cos(step)); 
+    cube.position.x = 4*(Math.cos(step));
     cube.position.y = 4*Math.abs(Math.sin(step));
 
     orbitControls.update();

@@ -17,6 +17,7 @@ initScene(props)(({ scene, camera, renderer, orbitControls }) => {
   cube.castShadow = true;
   scene.add(cube);
 
+
   const torusKnotGeom = new THREE.TorusKnotBufferGeometry(0.5, 0.2, 100, 100);
   const torusKnotMat = new THREE.MeshStandardMaterial({
     color: 0x00ff88,

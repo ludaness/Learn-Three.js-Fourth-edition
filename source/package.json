@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack build",
     "watch": "webpack --watch",
-    "serve": "webpack serve --open",
+    "serve": "webpack serve ",
     "serve:reload": "webpack build && webpack serve"
   },
   "author": "",
