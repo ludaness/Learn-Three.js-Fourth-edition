@@ -121,6 +121,7 @@ const props = {
 
 gui.add(props, 'cubeSpeed', -0.2, 0.2, 0.01)
 gui.add(props, 'torusSpeed', -0.2, 0.2, 0.01)
+gui.add(props, 'step', 0, 4, 0.01)
 
 renderer.render(scene, camera);
 
@@ -130,18 +131,22 @@ function animate() {
   renderer.render(scene, camera);
   stats.update();
 
-  cube.rotation.x += props.cubeSpeed;
-  cube.rotation.y += props.cubeSpeed;
-  cube.rotation.z += props.cubeSpeed;
+  cube.rotation.x += props.cubeSpeed + 0.03;
+  cube.rotation.y += props.cubeSpeed  + 0.03;
+  cube.rotation.z += props.cubeSpeed + 0.03;
+
+  cube2.rotation.x += props.cubeSpeed;
+  cube2.rotation.y += props.cubeSpeed;
+  cube2.rotation.z += props.cubeSpeed;
 
   torusKnotMesh.rotation.x -= props.torusSpeed;
   torusKnotMesh.rotation.y += props.torusSpeed;
   torusKnotMesh.rotation.z -= props.torusSpeed;
   // uncomment this to have the cube jump around
 
-  //   step += 0.04;
-  //   cube.position.x = 4*(Math.cos(step));
-  //   cube.position.y = 4*Math.abs(Math.sin(step));
+    step += 0.04;
+    cube.position.x = 4*(Math.cos(step));
+    cube.position.y = 4*Math.abs(Math.sin(step));
   controller.update();
 
   requestAnimationFrame(animate);

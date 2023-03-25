@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Labs</title>
+</head>
+<body>
+<span id="app">Test</span>
+<script>
+    const animate= ()=>{
+        const id= document.querySelector("#app")
+        id.textContent = new Date().toLocaleTimeString()
+        requestAnimationFrame(animate)
+    }
+
+    animate()
+    
+</script>
+</body>
+</html>
