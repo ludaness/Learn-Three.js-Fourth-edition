@@ -1,16 +1,24 @@
 import Stats from "three/examples/jsm/libs/stats.module";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import GUI from "lil-gui";
 import {
-  AmbientLight, BoxGeometry,
-  DirectionalLight,
-  Fog, Mesh, MeshLambertMaterial, MeshPhongMaterial, MeshStandardMaterial,
-  PerspectiveCamera, PlaneBufferGeometry,
-  Scene,
-  sRGBEncoding, TorusKnotBufferGeometry,
-  VSMShadowMap,
-  WebGLRenderer
+    AmbientLight,
+    BoxGeometry,
+    DirectionalLight,
+    Fog,
+    Mesh,
+    MeshLambertMaterial,
+    MeshPhongMaterial,
+    MeshStandardMaterial,
+    PerspectiveCamera,
+    PlaneBufferGeometry,
+    Scene,
+    sRGBEncoding,
+    TorusKnotBufferGeometry,
+    VSMShadowMap,
+    WebGLRenderer
 } from 'three'
+import {randomColor} from '../../util/colorUtil'
 
 // Note: This is just a getting started example. For the other examples
 // we reuse the basic components by extracting them to a set of common
@@ -23,17 +31,17 @@ scene.fog = new Fog(0xf8f8f8, 0.0025, 50);
 
 // setup camera
 const camera = new PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
 );
 camera.position.x = 10;
 camera.position.z = 10;
 camera.position.y = 2;
 
 // setup the renderer and attach to canvas
-const renderer = new WebGLRenderer({ antialias: true });
+const renderer = new WebGLRenderer({antialias: true});
 renderer.outputEncoding = sRGBEncoding;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = VSMShadowMap;
@@ -72,7 +80,7 @@ controller.maxPolarAngle = (3 * Math.PI) / 4;
 
 // create a cube and torus knot and add them to the scene
 const cubeGeometry = new BoxGeometry();
-const cubeMaterial = new MeshPhongMaterial({ color: 0x0000ff });
+const cubeMaterial = new MeshPhongMaterial({color: randomColor()});
 const cube = new Mesh(cubeGeometry, cubeMaterial);
 const cube2 = new Mesh(cubeGeometry, cubeMaterial);
 
@@ -85,11 +93,10 @@ cube2.castShadow = true;
 scene.add(cube2);
 
 
-
 const torusKnotGeometry = new TorusKnotBufferGeometry(0.5, 0.2, 100, 100);
 const torusKnotMat = new MeshStandardMaterial({
-  color: 0x00ff88,
-  roughness: 0.1,
+    color: randomColor(),
+    roughness: 0.1,
 });
 const torusKnotMesh = new Mesh(torusKnotGeometry, torusKnotMat);
 
@@ -100,7 +107,7 @@ scene.add(torusKnotMesh);
 // create a very large ground plane
 const groundGeometry = new PlaneBufferGeometry(10000, 10000);
 const groundMaterial = new MeshLambertMaterial({
-  color: 0xf8f8f8,
+    color: 0xf8f8f8,
 });
 const groundMesh = new Mesh(groundGeometry, groundMaterial);
 groundMesh.position.set(0, -2, 0);
@@ -115,8 +122,9 @@ document.body.appendChild(stats.dom);
 // add gui
 const gui = new GUI();
 const props = {
-  cubeSpeed: 0.01,
-  torusSpeed: 0.03,
+    cubeSpeed: 0.01,
+    torusSpeed: 0.03,
+    step: 0
 };
 
 gui.add(props, 'cubeSpeed', -0.2, 0.2, 0.01)
@@ -127,28 +135,31 @@ renderer.render(scene, camera);
 
 // render the scene
 let step = 0;
+
 function animate() {
-  renderer.render(scene, camera);
-  stats.update();
+    renderer.render(scene, camera);
+    stats.update();
 
-  cube.rotation.x += props.cubeSpeed + 0.03;
-  cube.rotation.y += props.cubeSpeed  + 0.03;
-  cube.rotation.z += props.cubeSpeed + 0.03;
+    cube.rotation.x += props.cubeSpeed + 0.03;
+    cube.rotation.y += props.cubeSpeed + 0.03;
+    cube.rotation.z += props.cubeSpeed + 0.03;
 
-  cube2.rotation.x += props.cubeSpeed;
-  cube2.rotation.y += props.cubeSpeed;
-  cube2.rotation.z += props.cubeSpeed;
+    cube2.rotation.x += props.cubeSpeed;
+    cube2.rotation.y += props.cubeSpeed;
+    cube2.rotation.z += props.cubeSpeed;
 
-  torusKnotMesh.rotation.x -= props.torusSpeed;
-  torusKnotMesh.rotation.y += props.torusSpeed;
-  torusKnotMesh.rotation.z -= props.torusSpeed;
-  // uncomment this to have the cube jump around
+    torusKnotMesh.rotation.x -= props.torusSpeed;
+    torusKnotMesh.rotation.y += props.torusSpeed;
+    torusKnotMesh.rotation.z -= props.torusSpeed;
+    // uncomment this to have the cube jump around
 
     step += 0.04;
-    cube.position.x = 4*(Math.cos(step));
-    cube.position.y = 4*Math.abs(Math.sin(step));
-  controller.update();
+    cube.position.x = 4 * (Math.cos(step));
+    cube.position.y = 4 * Math.abs(Math.sin(step));
+    controller.update();
 
-  requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
 }
+
+
 animate();
